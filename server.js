@@ -45,7 +45,13 @@ app.get("/", (req, res) => {
 
 app.post("/userDetails", upload.single("image"), async (req, res) => {
     try {
-        const name = req.body.name;
+        const mobileNumber = req.query.mobileNumber || "";
+        const name = req.query.name || "";
+        const gender = req.query.gender || "";
+        const checkindate = req.query.checkindate || "";
+        const pov = req.query.pov || "";
+        const city = req.query.city || "";
+        const roomNo = req.query.roomNo || ""; 
 
         if (typeof name !== "string" || !name.trim()) {
             return res.status(400).json({
@@ -71,7 +77,7 @@ app.post("/userDetails", upload.single("image"), async (req, res) => {
             stream.end(req.file.buffer);
         });
 
-        const result = await userDetails(name.trim(), imageUrl);
+        const result = await userDetails(name.trim(), imageUrl, mobileNumber, gender, checkindate, pov, city, roomNo);
 
         res.status(201).json({
             message: "User added successfully",
@@ -90,13 +96,7 @@ app.post("/userDetails", upload.single("image"), async (req, res) => {
 app.get("/userDetails", async (req, res) => {
     try {
       const mobileNumber = req.query.mobileNumber || "";
-      const name = req.query.name || "";
-      const gender = req.query.gender || "";
-      const checkindate = req.query.checkindate || "";
-      const pov = req.query.pov || "";
-      const city = req.query.city || "";
-      const roomNo = req.query.roomNo || ""; 
-      const users = await userDetailsSearch(mobileNumber,name,gender,checkindate,pov,city,roomNo);
+      const users = await userDetailsSearch(mobileNumber);
       console.log(users);
   
       res.json({
