@@ -32,6 +32,7 @@ app.get("/", (req, res) => {
     });
 });
 
+
 // Upload userData 
 // app.post('/userDetails', async (req, res) => {
 //     console.log(req.body);
