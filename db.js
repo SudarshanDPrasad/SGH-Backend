@@ -9,7 +9,7 @@ const db = mysql.createPool({
     database: "defaultdb"
 }).promise();
 
-export async function userDetails(userName) {
-    const insert = await db.query('INSERT INTO `defaultdb`.`sghdataentry-database` (user_name) VALUES (?)',[userName]);
+export async function userDetails(userName,imageUrl) {
+    const insert = await db.query('INSERT INTO `defaultdb`.`sghdataentry-database` (user_name,imageUrl) VALUES (?,?)',[userName,imageUrl]);
     return insert[0];
 }
