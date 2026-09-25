@@ -1,7 +1,7 @@
 import express from "express";
 import multer from "multer";
 import { v2 as cloudinary } from "cloudinary";
-import { userDetails } from "./db.js";
+import { userDetails , userDetailsSearch} from "./db.js";
 
 const app = express();
 
@@ -86,12 +86,38 @@ app.post("/userDetails", upload.single("image"), async (req, res) => {
     }
 });
 
-// app.listen(3000, () => {
-//     console.log("Server running on http://localhost:3000");
-// });
+// Search Product List
+app.get("/userDetails", async (req, res) => {
+    try {
+      const mobileNumber = req.query.mobileNumber || "";
+      const name = req.query.name || "";
+      const gender = req.query.gender || "";
+      const checkindate = req.query.checkindate || "";
+      const pov = req.query.pov || "";
+      const city = req.query.city || "";
+      const roomNo = req.query.roomNo || ""; 
+      const users = await userDetailsSearch(mobileNumber,name,gender,checkindate,pov,city,roomNo);
+      console.log(users);
+  
+      res.json({
+        success: true,
+        data: users
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({
+        success: false,
+        message: "Failed to fetch customer details"
+      });
+    }
+  });
 
-const PORT = process.env.PORT || 3000;
-
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+app.listen(3000, () => {
+    console.log("Server running on http://localhost:3000");
 });
+
+// const PORT = process.env.PORT || 3000;
+
+// app.listen(PORT, () => {
+//   console.log(`Server running on port ${PORT}`);
+// });
