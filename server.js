@@ -45,13 +45,13 @@ app.get("/", (req, res) => {
 
 app.post("/userDetails", upload.single("image"), async (req, res) => {
     try {
-        const mobileNumber = req.query.mobileNumber || "";
-        const name = req.query.name || "";
-        const gender = req.query.gender || "";
-        const checkindate = req.query.checkindate || "";
-        const pov = req.query.pov || "";
-        const city = req.query.city || "";
-        const roomNo = req.query.roomNo || ""; 
+        const mobileNumber = req.body.mobileNumber || "";
+        const name = req.body.name || "";
+        const gender = req.body.gender || "";
+        const checkindate = req.body.checkindate || "";
+        const pov = req.body.pov || "";
+        const city = req.body.city || "";
+        const roomNo = req.body.roomNo || ""; 
 
         if (typeof name !== "string" || !name.trim()) {
             return res.status(400).json({
