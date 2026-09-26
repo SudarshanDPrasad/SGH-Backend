@@ -123,6 +123,7 @@ app.get("/userLogin", async (req, res) => {
   
       res.json({
         userName: users[0].user_name,
+        role : users[0].role
       });
     } catch (error) {
       console.error(error);
