@@ -16,6 +16,14 @@ export async function userDetails(userName,imageUrl, mobileNumber,gender,checkin
 }
 
 export async function userDetailsSearch(mobileNumber) {
-    const query = await db.execute('SELECT * FROM `defaultdb`.`sghdataentry-database` WHERE mobileNumber like ? ORDER BY user_name',[`%${mobileNumber}%`]);
+    const query = await db.execute('SELECT * FROM `defaultdb`.`sghdataentry-database` WHERE mobileNumber like ? ORDER BY user_id desc',[`%${mobileNumber}%`]);
+    return query[0];
+}
+
+export async function userLogin(userName,password) {
+    const query = await db.execute(
+        'SELECT * FROM `defaultdb`.`userDetails` WHERE user_name = ? AND password = ?',
+        [userName, password]
+    );
     return query[0];
 }

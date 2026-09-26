@@ -1,7 +1,7 @@
 import express from "express";
 import multer from "multer";
 import { v2 as cloudinary } from "cloudinary";
-import { userDetails , userDetailsSearch} from "./db.js";
+import { userDetails , userDetailsSearch, userLogin} from "./db.js";
 
 const app = express();
 
@@ -112,12 +112,33 @@ app.get("/userDetails", async (req, res) => {
     }
   });
 
-app.listen(3000, () => {
-    console.log("Server running on http://localhost:3000");
-});
+  // Search Product List
+app.get("/userLogin", async (req, res) => {
+    try {
+      const userName = req.query.userName || "";
+      const password = req.query.password || "";
 
-// const PORT = process.env.PORT || 3000;
+      const users = await userLogin(userName,password);
+      console.log(users);
+  
+      res.json({
+        userName: users[0].user_name,
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({
+        success: false,
+        message: "Failed to fetch customer details"
+      });
+    }
+  });
 
-// app.listen(PORT, () => {
-//   console.log(`Server running on port ${PORT}`);
+// app.listen(3000, () => {
+//     console.log("Server running on http://localhost:3000");
 // });
+
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
