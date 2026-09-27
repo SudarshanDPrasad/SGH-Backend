@@ -49,6 +49,7 @@ app.post("/userDetails", upload.single("image"), async (req, res) => {
         const name = req.body.name || "";
         const gender = req.body.gender || "";
         const checkindate = req.body.checkindate || "";
+        const checkintime = req.body.checkintime || "";
         const pov = req.body.pov || "";
         const city = req.body.city || "";
         const roomNo = req.body.roomNo || ""; 
@@ -77,7 +78,7 @@ app.post("/userDetails", upload.single("image"), async (req, res) => {
             stream.end(req.file.buffer);
         });
 
-        const result = await userDetails(name.trim(), imageUrl, mobileNumber, gender, checkindate, pov, city, roomNo);
+        const result = await userDetails(name.trim(), imageUrl, mobileNumber, gender, checkindate,checkintime, pov, city, roomNo);
 
         res.status(201).json({
             message: "User added successfully",

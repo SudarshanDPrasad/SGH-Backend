@@ -9,9 +9,9 @@ const db = mysql.createPool({
     database: "defaultdb"
 }).promise();
 
-export async function userDetails(userName,imageUrl, mobileNumber,gender,checkindate,pov,city,roomNo) {
-    const insert = await db.query('INSERT INTO `defaultdb`.`sghdataentry-database` (user_name,imageUrl, mobileNumber,gender,checkindate,pov,city,roomNo) VALUES (?,?,?,?,?,?,?,?)',
-    [userName,imageUrl,mobileNumber,gender,checkindate,pov,city,roomNo]);
+export async function userDetails(userName,imageUrl, mobileNumber,gender,checkindate,checkintime,pov,city,roomNo) {
+    const insert = await db.query('INSERT INTO `defaultdb`.`sghdataentry-database` (user_name,imageUrl, mobileNumber,gender,checkindate,checkintime,pov,city,roomNo) VALUES (?,?,?,?,?,?,?,?)',
+    [userName,imageUrl,mobileNumber,gender,checkindate,checkintime,pov,city,roomNo]);
     return insert[0];
 }
 
