@@ -20,6 +20,11 @@ export async function userDetailsSearch(mobileNumber) {
     return query[0];
 }
 
+export async function userDetailsDateearch(date) {
+    const query = await db.execute('SELECT * FROM `defaultdb`.`sghdataentry-database` WHERE checkindate like ? ORDER BY user_id desc',[`%${date}%`]);
+    return query[0];
+}
+
 export async function userLogin(userName,password) {
     const query = await db.execute(
         'SELECT * FROM `defaultdb`.`userDetails` WHERE user_name = ? AND password = ?',

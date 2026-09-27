@@ -1,7 +1,7 @@
 import express from "express";
 import multer from "multer";
 import { v2 as cloudinary } from "cloudinary";
-import { userDetails , userDetailsSearch, userLogin} from "./db.js";
+import { userDetails , userDetailsSearch, userLogin, userDetailsDateearch} from "./db.js";
 
 const app = express();
 
@@ -98,6 +98,26 @@ app.get("/userDetails", async (req, res) => {
     try {
       const mobileNumber = req.query.mobileNumber || "";
       const users = await userDetailsSearch(mobileNumber);
+      console.log(users);
+  
+      res.json({
+        success: true,
+        data: users
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({
+        success: false,
+        message: "Failed to fetch customer details"
+      });
+    }
+  });
+
+  // Search Product List
+app.get("/userDetailsDate", async (req, res) => {
+    try {
+      const date = req.query.date || "";
+      const users = await userDetailsSearch(date);
       console.log(users);
   
       res.json({
