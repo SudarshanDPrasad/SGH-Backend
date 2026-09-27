@@ -117,7 +117,7 @@ app.get("/userDetails", async (req, res) => {
 app.get("/userDetailsDate", async (req, res) => {
     try {
       const date = req.query.date || "";
-      const users = await userDetailsSearch(date);
+      const users = await userDetailsDateearch(date);
       console.log(users);
   
       res.json({
